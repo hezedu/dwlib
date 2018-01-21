@@ -4,8 +4,7 @@ import store from '../store';
 
 const API_ROOT = 'http://192.168.56.101:3000/admin_api';
 Object.assign(request.globalConfig, {
-  rootUrl: API_ROOT,
-  stateKey: 'isRequest'
+  rootUrl: API_ROOT
 })
 var ajaxObj = {
   statusCode: {

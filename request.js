@@ -1,4 +1,4 @@
-const {noop, TypeOf, omitEmpty} = require('./dw-global');
+const {noop, TypeOf, omitEmpty} = require('./util');
 
 const $ = window.$;
 const POOL = {};

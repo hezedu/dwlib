@@ -1,4 +1,4 @@
-export default function(max, len, index){
+export default function(max, index, len){
   len = len || 9;
   index = index || 1;
 
@@ -22,15 +22,20 @@ export default function(max, len, index){
     start = index - preLen + 2;
     end = start + len - 4;
   }
-
+  var midArr = [];
+  for(let i = start; i < end; i++){
+    midArr.push(i);
+  }
   return {
     prev: (index === 1) ? null : index - 1,
     prevEllipsis: pre_ellipsis ? (start - 1) : pre_ellipsis,
-    midStart: start,
-    midEnd: end,
+    // midStart: start,
+    // midEnd: end,
+    index,
+    midArr,
     nextEllipsis: next_ellipsis ? end : next_ellipsis,
     index: index,
-    first: 1,
+    first: max === 0 ? null : 1,
     max:1 === max ? null : max,
     next: index === max ? null : (index + 1)
   }

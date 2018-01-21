@@ -1,11 +1,25 @@
-export { default as paging }  from './paging';
-
 export const noop = function(){}
 
 export const TypeOf = function(v){
   return Object.prototype.toString.call(v).slice(8, -1);
 }
 
+export function clearObj(){
+  var o = {};
+  o.__proto__ = null;
+  delete(o.__proto__);
+  return o;
+}
+
+export function omitEmpty(obj){
+  var obj2 = {};
+  for(var i in obj){
+    if(obj[i] || obj[i] === 0){
+      obj2[i] = obj[i];
+    }
+  }
+  return obj2;
+}
 
 export const timeFormat = (date, fmt) => {
   date = date ? new Date(date) : new Date();
