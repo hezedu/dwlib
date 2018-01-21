@@ -4,7 +4,8 @@ import store from '../store';
 
 const API_ROOT = 'http://192.168.56.101:3000/admin_api';
 Object.assign(request.globalConfig, {
-  rootUrl: API_ROOT
+  rootUrl: API_ROOT,
+  stateKey: 'isRequest'
 })
 var ajaxObj = {
   statusCode: {
@@ -21,9 +22,11 @@ if(API_ROOT.indexOf('http') === 0){
 }
 window.$.ajaxSetup(ajaxObj);
 
-window.Vue.prototype.request = function(opts){
+function vRequest(opts){
   opts.context = this;
   return request(opts);
 }
+vRequest.abortAll = request.abortAll;
+window.Vue.prototype.request = vRequest;
 
 window.Vue.prototype.upload = upload;

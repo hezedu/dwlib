@@ -121,13 +121,12 @@ function request(opts){
       //console.log('=============abort 成功!=============');
       return;
     }
-
-    complete(xhr, status);
+    complete.call(self, xhr, status);
 
     if(status !== 'success'){
-      error(xhr);
+      error.call(self,  xhr);
     }else{
-      success((xhr.responseJSON || xhr.responseText));
+      success.call(self, (xhr.responseJSON || xhr.responseText));
     }
   }
 
