@@ -1,0 +1,3 @@
+remove defalut type 'get'
+rename repeatSubmitMode repeatMode
+type json
