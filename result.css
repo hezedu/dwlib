@@ -1,0 +1,66 @@
+/* PDF preview style */
+.__DW_EMPTY__ {
+  z-index: 9999999999;
+undefined
+
+.__DW_EMPTY__{
+  height: 100%;
+undefined
+
+.__DW_EMPTY__ input{
+  height: 36px!important; font: 14px Arial!important;
+undefined
+
+/*tags*/
+.__DW_EMPTY__{
+  border-bottom: 1px solid #ddd; line-height: 0;
+undefined
+
+.__DW_EMPTY__{
+  padding-top: 10px; padding-bottom: 10px;
+}
+
+.dw-upload-tag-menu-title span{
+  margin-right: 5px;font-weight: bold;
+}
+
+.dw-tag-item-success:before, .dw-tag-item-fail:before{
+  margin-right: 10px;
+}
+
+.dw_el .el-dialog{
+  width: 570px!important;
+}
+
+
+.dw-modal-wrap .el-dialog__body{
+  padding-left: 40px; padding-right: 20px;
+}
+
+.dw-upload-file-name{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  vertical-align: middle;font-size: 14px;font-weight: bold;
+  color: #1c1f26;
+}
+
+
+.dw-upload-wrap{
+  width: 210px;text-align:center;
+}
+
+.dw_upload_inline{
+  position: static;
+}
+.dw_upload_inline .dw-notice-body{
+  height: auto;
+}
+.dw_upload_inline table.dw-compact-table, .dw_upload_inline table.dw-compact-table tr, .dw_upload_inline table.dw-compact-table td{
+  border:0!important;
+}
+.dw_upload_inline table td{
+  padding:0;
+}
+.dw_upload_inline td:last-child{
+  padding-right: 10px;
+}
