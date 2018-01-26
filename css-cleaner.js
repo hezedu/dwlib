@@ -79,15 +79,55 @@ var cleaner = function (cssPath, projectPath){
         result[className] = true;
       }
     }
-    var FLAG = '__DW_EMPTY__'
+    console.log('empty total:', Object.keys(result).length);
+    var FLAG = '__DW_EMPTY__', REMOVE_FLAG = '__DW_REMOVE_FLAG__';
     for(let i in result){
-      cssStr = cssStr.replace(i, '__DW_EMPTY__');
-      
+      //console.log('i', i)
+      var reg = new RegExp(i, 'g');
+      cssStr = cssStr.replace(reg, '__DW_EMPTY__');
     }
-    cssStr = cssStr.replace(/\}([\s\S]*?)\.__DW_EMPTY__( *)\{([\s\S]*?)\}/g, '}\n');
-    cssStr = cssStr.replace(/\}([\s\S]*?)\.__DW_EMPTY__([\s\S]*?)\}/g, function(mastr){
-      console.log('mastr', mastr)
+    var count2 = 0;
+    cssStr = cssStr.replace(/(^|\})([^\}]*)\.__DW_EMPTY__([\s\S]*?)\{/g, 
+      function(mStr){
+
+        var firstP = mStr.indexOf('.');
+        var preStr = mStr.substr(0, firstP);
+        mStr = mStr.substr(firstP);
+      var lastP = mStr.search(/\s*\{$/);
+        var afterStr = mStr.substr(lastP);
+        //console.log('lastP', lastP, mStr.length - 1, afterStr);
+        
+        mStr = mStr.substr(0, lastP);
+        //console.log('mStr', mStr)
+        var mStrArr = mStr.split(',');
+        var newClassArr = [];
+        mStrArr.forEach(v => {
+          if(v.indexOf(FLAG) === -1){
+            newClassArr.push(v);
+          }
+        })
+        var resultStr;
+        if(!newClassArr.length){
+          resultStr = REMOVE_FLAG;
+          afterStr = '{';
+        }else{
+          resultStr = newClassArr.join(',');
+        }
+        return preStr + resultStr + afterStr;
+        // newClassArr = newClassArr.join('.');
+        // console.log(newClassArr);
+        // count2 = count2 + 1;
+        // console.log('******************', count2);
+        // return 'GGGG';
     });
+    var removeReg = new RegExp(REMOVE_FLAG + '{([\\s\\S]*?)}', 'g')
+    cssStr = cssStr.replace(removeReg, function(mStr){
+      //console.log('mStr', mStr);
+      return ''
+    });
+    // cssStr = cssStr.replace(/\}([\s\S]*?)\.__DW_EMPTY__([\s\S]*?)\}/g, function(mastr){
+    //   console.log('mastr', mastr)
+    // });
     // cssStr = cssStr.replace(/\}([\s\S]*?)\.__DW_EMPTY__( *),( *)\}/g, '}\n');
     //cssStr = cssStr.replace(/\.__DW_EMPTY__( *),( *)/g, '');
     fs.writeFileSync('./result.css', cssStr)
@@ -103,7 +143,7 @@ var cleaner = function (cssPath, projectPath){
 
 function parseCssClass(str){
   var obj = clearObj();
-  const arr = str.match(/\.[\w\-]+(?:(( *)[\{|\>|\.|,]))/g);
+  const arr = str.match(/\.[\w\-]+(?:(\s*[\{\>\.,\:\[]))/g);
   arr.forEach(k => {
     //k = k.substr(1);
     k = k.match(/[\w\-]+/g);
