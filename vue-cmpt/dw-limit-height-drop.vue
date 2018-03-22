@@ -10,7 +10,7 @@
       <slot></slot>
     </div>
     <div class='dw-limit-height-drop-menu' :style='{height: height, transition: transition}'>
-      <div ref="menu" >
+      <div style="padding-bottom:1px;margin-bottom:-1px;" ref="menu" >
         <slot name='menu' />
       </div>
     </div>
@@ -35,14 +35,15 @@ export default {
   data(){
     var duration = this.duration;
     return {
-      height: null,
+      height: this.limitHeight + 'px',
+      isShowMenu: false,
       transition : 'all ' + (duration / 1000) + 's'
     }
   },
   methods:{
     toggle(){
-      const {max, limit} = this.getMenuHeight();
-      if(limit === max){
+      const max = this.getMenuHeight();
+      if(this.isShowMenu){
         this.height = max + 'px';
         setTimeout(() => {
           this.height = this.limitHeight + 'px';
@@ -53,18 +54,16 @@ export default {
           this.height = 'auto';
         }, this.duration)
       }
+      this.isShowMenu = !this.isShowMenu;
     },
     getMenuHeight(){
       var $dom = window.$(this.$refs.menu);
-      return {
-        limit: $dom.parent().outerHeight(true),
-        max: $dom.outerHeight(true)
-      }
+      return $dom.outerHeight(true)
     }
   },
   mounted(){
     if(this.limitHeight === 0){
-      this.show();
+      this.toggle();
     }
   }
 }
