@@ -1,3 +1,3 @@
-function isNotChange(newVal, oldVal){
+function isSame(newVal, oldVal){
   return newVal === oldVal || (isNaN(newVal) && isNaN(oldVal))
 }
