@@ -106,7 +106,7 @@ function request(opts){
   //由于juqery的complete会在success之后执行，所以自已写了个让它在之前执行。
   opts.complete = function(xhr, status){
 
-    delete(POOL[_pIndex]);
+    delete(POOL[_pIndex]); //销毁 POOL 的数据
     
     if(stateKey){
       self[stateKey] = false;
