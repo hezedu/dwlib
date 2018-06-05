@@ -91,17 +91,16 @@ function request(opts){
     }
 
     if(self[stateKey]){
-      if(repeatSubmitMode === 'abort'){
-
-      }else if(repeatSubmitMode === 'block'){
+      //if(repeatSubmitMode === 'abort'){
+      //
+      //}else 
+      if(repeatSubmitMode === 'block'){
         return; //阻塞模式
       }
     }else {
       self[stateKey] = true;
     }
   }
-
-
 
   
   //由于juqery的complete会在success之后执行，所以自已写了个让它在之前执行。
